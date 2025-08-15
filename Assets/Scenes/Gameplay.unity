@@ -434,6 +434,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7687d275881f133478bb67b53b8ffce8, type: 3}
+--- !u!1 &329088141 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5319716025530403996, guid: 09f7c36c6c69ea24b84f91e637504fce,
+    type: 3}
+  m_PrefabInstance: {fileID: 134825755673459705}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &390035593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,6 +1444,7 @@ GameObject:
   - component: {fileID: 1773712053}
   - component: {fileID: 1773712052}
   - component: {fileID: 1773712051}
+  - component: {fileID: 1773712054}
   m_Layer: 5
   m_Name: ChatInput
   m_TagString: Untagged
@@ -1604,6 +1611,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773712049}
   m_CullTransparentMesh: 1
+--- !u!114 &1773712054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773712049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35691e04d58e544468afa34c4704be71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatInput: {fileID: 1773712051}
+  chatMsgPrefab: {fileID: 329088141}
+  content: {fileID: 1002339814}
 --- !u!1 &1914993432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,6 +1724,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1002339814}
     m_Modifications:
+    - target: {fileID: 1357465710787242113, guid: 09f7c36c6c69ea24b84f91e637504fce,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3558942814116241604, guid: 09f7c36c6c69ea24b84f91e637504fce,
         type: 3}
       propertyPath: m_Pivot.x

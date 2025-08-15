@@ -18,7 +18,7 @@ public class MainMenuDisplay : MonoBehaviour
     private void OnNameChanged(string name)
     {
         PlayerSettings.PlayerName = name;
-        Debug.Log($"Player name changed to {}")
+        Debug.Log($"Player name changed to {name}");
     }
     
     public void StartHost()

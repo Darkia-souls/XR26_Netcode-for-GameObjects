@@ -1,12 +1,19 @@
 using UnityEngine;
 using Unity.Netcode;
+using Unity.Collections;
 
 public class Player : NetworkBehaviour
 {
 
     [SerializeField] private PlayerChat playerChat;
-    
-    public float moveSpeed = 5f;
+
+	public NetworkVariable<float> moveSpeed = 
+		new NetworkVariable<float>(
+			value: 5f,
+			NetworkVariableReadPermission.Everyone,
+			NetworkVariableWritePermission.Owner
+		);
+   
 
     public NetworkVariable<FixedString32Bytes> playerName =
         new NetworkVariable<FixedString32Bytes>(
@@ -27,7 +34,13 @@ public class Player : NetworkBehaviour
 
         playerName.Value = PlayerSettings.PlayerName;
         
-        Debug.Log($"This player name is {playerName.Value}")
+        Debug.Log($"This player name is {playerName.Value}");
+
+		//Subscribe to move speed changes
+		moveSpeed.OnValueChanged += OnMoveSpeedChanged;
+
+		//Request server to change speed
+		ChangeMoveSpeedServerRPC(20f);
     }
 
     private void Update()
@@ -42,18 +55,10 @@ public class Player : NetworkBehaviour
         );
 
 
-        Vector3 move = input * moveSpeed * Time.deltaTime;
+        Vector3 move = input * moveSpeed.Value * Time.deltaTime;
 
         // Send the movement to the server
         MoveServerRpc(move);
-    }
-    
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner) return;
-        moveSpeed.OnValueChanged += OnMoveSpeedChanged;
-        ChangeMoveSpeedServerRPC(20);
-        moveSpeedValue(20);
     }
 
     [ServerRpc]
@@ -63,13 +68,14 @@ public class Player : NetworkBehaviour
         transform.position += move;
     }
     
+	[ServerRpc]
     private void ChangeMoveSpeedServerRPC( float newMoveSpeed)
     {
-        newMoveSpeed.Value = newMoveSpeed;
+        moveSpeed.Value = newMoveSpeed;
     }
     
-    public void OnMoveSpeedChanged(float oldValue, floar newValue)
+    public void OnMoveSpeedChanged(float oldValue, float newValue)
     {
-        Debug.Log("$The movespeedvalue has changed from {}");
+        Debug.Log("$The movespeedvalue has changed from {oldValue} to {newValue} ");
     }
 }

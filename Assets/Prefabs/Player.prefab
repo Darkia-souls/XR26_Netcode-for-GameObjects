@@ -178,8 +178,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   playerChat: {fileID: 0}
+  isGrounded: 1
+  jumpForce: 10
+  groundDistanceCheck: 1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  rigidBody: {fileID: 6857377937492418248}
   moveSpeed:
-    m_InternalValue: 5
+    m_InternalValue: 10
   playerName:
     m_InternalValue:
       utf8LengthInBytes: 0

@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 72441939}
   - component: {fileID: 72441938}
   - component: {fileID: 72441937}
+  - component: {fileID: 72441940}
   m_Layer: 5
   m_Name: Chat Scroll View
   m_TagString: Untagged
@@ -227,6 +228,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72441935}
   m_CullTransparentMesh: 1
+--- !u!114 &72441940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72441935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35691e04d58e544468afa34c4704be71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatInput: {fileID: 1773712051}
+  chatMsgPrefab: {fileID: 329088141}
+  content: {fileID: 1002339814}
 --- !u!1 &135828074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,7 +1460,6 @@ GameObject:
   - component: {fileID: 1773712053}
   - component: {fileID: 1773712052}
   - component: {fileID: 1773712051}
-  - component: {fileID: 1773712054}
   m_Layer: 5
   m_Name: ChatInput
   m_TagString: Untagged
@@ -1611,21 +1626,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773712049}
   m_CullTransparentMesh: 1
---- !u!114 &1773712054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773712049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35691e04d58e544468afa34c4704be71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatInput: {fileID: 1773712051}
-  chatMsgPrefab: {fileID: 329088141}
-  content: {fileID: 1002339814}
 --- !u!1 &1914993432
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class ChatUI : MonoBehaviour
     
     public UnityAction<string> OnMessageSubmit;
     
+    
     void Awake()
         {
             if (Instance != null && Instance != this)

@@ -23,6 +23,12 @@ public class MainMenuDisplay : MonoBehaviour
     
     public void StartHost()
     {
+        if (!string.IsNullOrWhiteSpace(nameInput.text))
+            PlayerSettings.PlayerName = nameInput.text;
+        else
+        {
+            PlayerSettings.PlayerName = "Host_" + Random.Range(0, 1000);
+        }
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.LoadScene(gameplaySceneName, LoadSceneMode.Single);
     }
@@ -35,6 +41,12 @@ public class MainMenuDisplay : MonoBehaviour
 
     public void StartClient()
     {
+        if (!string.IsNullOrWhiteSpace(nameInput.text))
+            PlayerSettings.PlayerName = nameInput.text;
+        else
+        {
+            PlayerSettings.PlayerName = "Client_" + Random.Range(0, 1000);
+        }
         NetworkManager.Singleton.StartClient();
     }
 }

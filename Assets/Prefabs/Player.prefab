@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  playerChat: {fileID: 0}
+  playerChat: {fileID: 9110473910383340555}
   isGrounded: 1
   jumpForce: 10
   groundDistanceCheck: 1

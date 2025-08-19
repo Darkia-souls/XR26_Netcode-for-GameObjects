@@ -3,6 +3,8 @@ using Unity.Netcode;
 using UnityEngine.InputSystem;
 using Unity.Netcode.Components;
 using Unity.Collections; 
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : NetworkBehaviour
 {
@@ -22,7 +24,7 @@ public class Player : NetworkBehaviour
 		new NetworkVariable<float>(
 			value: 5f,
 			NetworkVariableReadPermission.Everyone,
-			NetworkVariableWritePermission.Owner
+			NetworkVariableWritePermission.Server
 		);
    
 
@@ -42,27 +44,39 @@ public class Player : NetworkBehaviour
     {
         base.OnNetworkSpawn();
 
-        if (PlayerSettings.PlayerName.Length <= 0)
-        {
-            Debug.Log("Cannot assign an empty name to player");
-            return;
-        }
+       if (IsOwner)
+       {
+            if (!string.IsNullOrWhiteSpace(PlayerSettings.PlayerName))
+			{
+				playerName.Value = PlayerSettings.PlayerName;
+			}
+			else
+			{
+				//Fallback name (differentiate host vs clients)
+				playerName.Value = IsServer ? $"Host_{OwnerClientId}" : $"Client_{OwnerClientId}";
 
-        playerName.Value = PlayerSettings.PlayerName;
+			}
+       }
         
         Debug.Log($"This player name is {playerName.Value}");
 
 		//Subscribe to move speed changes
 		moveSpeed.OnValueChanged += OnMoveSpeedChanged;
 
-		//Request server to change speed
+		//Request server to change speed conditionally
+		if (IsOwner)
+		{
 		ChangeMoveSpeedServerRPC(20f);
+		}
     }
 
     private void Update()
     {
         // Only process input for the local player
         if (!IsOwner) return;
+
+		//Doesn't process movement if typing in chat 
+		if (IsTypingInUI()) return;
 
         Vector3 input = new Vector3(
             Input.GetAxis("Horizontal"),
@@ -81,7 +95,7 @@ public class Player : NetworkBehaviour
 
         // Send the movement to the server
         MoveServerRpc(move);
-    	}
+    }
 
 		//A server function that calls the jump function to preform jump logic
 		[ServerRpc]
@@ -134,5 +148,16 @@ public class Player : NetworkBehaviour
     public void OnMoveSpeedChanged(float oldValue, float newValue)
     {
         Debug.Log("$The movespeedvalue has changed from {oldValue} to {newValue} ");
+    }
+
+	private bool IsTypingInUI()
+	{
+		if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
+		{
+			var selected = EventSystem.current.currentSelectedGameObject;
+			if (selected.GetComponent<InputField>() != null) return true;
+			if (selected.GetComponent<TMPro.TMP_InputField>() != null) return true;
+		}
+		return false;
     }
 }
